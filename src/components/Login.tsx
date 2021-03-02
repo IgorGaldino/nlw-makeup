@@ -1,20 +1,41 @@
+import { GetServerSideProps } from 'next';
+import { useState } from 'react';
 import styles from '../styles/components/Login.module.css';
 
-export function Login() {
-  return(
+export function Login(props) {
+
+  const [user, setUser] = useState("");
+
+  function realizarLogin() {
+    console.log("Efetuando login...", user);
+  }
+
+  return (
     <div className={styles.container}>
       <section>
-        <div>
+        <header>
           <img src="/logo-full.svg" alt="Logo"/>
-        </div>
-        <div>
+        </header>
+        <main>
           <h3>Bem-vindo</h3>
-          <p>Faça o login com seu Github para começar</p>
-        </div>
-        <div>
-          <input type="text" placeholder="Digite seu user name"/>
-          <button type="button">-></button>
-        </div>
+          <div className={styles.infoLogin}>
+            <img src="/github.svg" alt="Github"/>
+            <p>Faça o login com seu Github para começar</p>
+          </div>
+        </main>
+        <footer>
+          <input
+            type="text"
+            placeholder="Digite seu user name"
+            value={user}
+            onChange={event => setUser(event.target.value)}
+          />
+          <button
+            type="button"
+            onClick={realizarLogin}
+          >->
+          </button>
+        </footer>
       </section>
     </div>
   )

@@ -11,12 +11,15 @@ import { CompletedChanllenges } from "../components/CompletedChallenges";
 import styles from "../styles/pages/Home.module.css";
 import { CountdownProvider } from "../contexts/CountdownContext";
 import { ChallengesProvider } from "../contexts/CallengesContext";
+import { Login } from "../components/Login";
 
 interface HomeProps {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
 }
+
+const isLogging = true;
 
 export default function Home(props: HomeProps) {
   return (
@@ -25,38 +28,43 @@ export default function Home(props: HomeProps) {
       currentExperience={props.currentExperience}
       challengesCompleted={props.challengesCompleted}
     >
-      <div className={styles.container}>
-        <Head>
-          <title>WakeUp</title>
-        </Head>
+      <Head>
+        <title>WakeUp</title>
+      </Head>
+      {isLogging ? (
+        <div className={styles.containerLogin}>
+          <Login />
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <ExperienceBar />
 
-        <ExperienceBar />
-
-        <CountdownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChanllenges />
-              <Countdown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountdownProvider>
-      </div>
+          <CountdownProvider>
+            <section>
+              <div>
+                <Profile />
+                <CompletedChanllenges />
+                <Countdown />
+              </div>
+              <div>
+                <ChallengeBox />
+              </div>
+            </section>
+          </CountdownProvider>
+        </div>
+      )}
     </ChallengesProvider>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-
   const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
+  console.log("iuuuu");
   return {
     props: {
       level: Number(level),
       currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted)
+      challengesCompleted: Number(challengesCompleted),
     },
   };
 };

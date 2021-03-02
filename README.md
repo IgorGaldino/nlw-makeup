@@ -30,7 +30,7 @@ yarn dev
 #### Realizar deploy
 ##### Instalar vercel
 npm i -g vercel
-##### Primeiro deploy no vercel
+##### Autenticação e criação do projeto no vercel
 vercel
 ##### fazendo deploy com vercel em produção
 vercel --prod
